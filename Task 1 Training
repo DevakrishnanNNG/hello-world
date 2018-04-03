@@ -1,0 +1,71 @@
+1, What is monit and mmonit?
+2, How monit communicate with mmonit?
+3, Create an EC2 instance on your test AWS account.
+4, Add c2s user and enable sudo privilege. (Follow our script)
+5, Connect this server to our Mmonit server and create a test incident on our monitoring system.
+======================================================================================================================
+
+52.87.247.163	My aws free account IP
+
+
+(1) What is monit and mmonit?
+
+Monit :-
+	It is an Open source utility used for managing and monitoring unix/linux systems. Monit conducts automatic maintenance and repair and executes meaningful casual actions in error situations.
+
+M/Monit :-
+	M/Monit uses Monit as an agent and will manage and monitor all our hosts and services. It has a clean, simple and well designed user interface. 
+
+
+(2) How monit communicate with mmonit?
+	To setup communication between monit and mmonit add the below statements on to the monit control file.
+
+# vi /etc/monit/monitrc
+#General Format
+```
+set mmonit http://<user>:<password>@<M/Monit-host>:<port>/collector
+
+set httpd port 2812 and use address <monit-host>
+
+allow localhost
+
+allow <M/Monit-host>
+
+allow username:password
+```
+
+(3) Create an EC2 instance on your test AWS account.
+	Successfully created an EC2 instance in my aws free tier account.
+
+(4) Add c2s user and enable sudo privilege. (Follow our script)
+	Created c2s user and given sudo privilege for the user.	
+```
+[root@ip-172-31-81-134 ~]# cat /etc/sudoers.d/c2s_sudo 
+c2s ALL=(ALL) NOPASSWD:ALL
+```
+```
+$ sshr 52.87.247.163
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2017.09-release-notes/
+1 package(s) needed for security, out of 2 available
+Run "sudo yum update" to apply all updates. 
+[c2s@ip-172-31-81-134 ~]$ 
+[c2s@ip-172-31-81-134 ~]$ sudo bash
+[root@ip-172-31-81-134 c2s]# 
+```
+
+(5) Connect this server to our Mmonit server and create a test incident on our monitoring system.
+	Successfully conected the test server `172.31.17.68` on to our mmonit and created a test inciident and the alert is displayed in our monitoring system.
+
+Kindly verify the attached screen-shots as proof.
+
+
+
+
+
+
+
